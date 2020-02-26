@@ -292,7 +292,7 @@ section.hero {
    @include gradient();
 
    &::before {
-      content: 'PORTFOLIO';
+      // content: 'PORTFOLIO';
       display: inline-block;
       color: #000;
       opacity: 0.04;

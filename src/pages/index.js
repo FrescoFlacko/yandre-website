@@ -1,10 +1,13 @@
 import React from "react"
 import "../styles.scss"
+import HeroSection from "../components/hero-section/hero-section"
 
 export default () => (
-<div class="container text-center">
-    <div class="row">
-        <h1>This is a test</h1>
+    <div>
+        <div>
+            Hello World!
+            
+        </div>
+        <HeroSection />
     </div>
-</div>
 )
