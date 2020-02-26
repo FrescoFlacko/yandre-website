@@ -89,7 +89,8 @@ $brand-secondary: $blue;
 }
 @else if $templateColour == violet {
     $brand-primary:  #9055A2;
-    $brand-secondary:  #be73be;
+    // $brand-secondary:  #be73be;
+    $brand-secondary: #c684c6;
 }
 
 $primary:       $brand-primary !default;
