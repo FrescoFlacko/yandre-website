@@ -1,0 +1,11 @@
+@import "../../bootstrap/scss/style.violet.scss";
+@import "../../bootstrap/scss/theme";
+@import "../../bootstrap/scss/core";
+
+.technology-section-background {
+    background-color: $gray-100;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 5px darken($gray-100, 20%);
+}
