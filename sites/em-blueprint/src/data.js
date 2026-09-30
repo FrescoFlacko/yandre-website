@@ -1,9 +1,9 @@
 /*
  * All profile content for the blueprint site lives here.
  *
- * Source: Yan's LinkedIn profile screenshots (2026-09-30) plus public LinkedIn
- * search snippets for the Projects section (Escy, CitySight, Mango Heroes,
- * Parier). Truncated LinkedIn text ("...more") is left out rather than guessed.
+ * Source: Yan's LinkedIn profile screenshots (2026-09-30), including the
+ * Experience and Projects sections. Truncated LinkedIn text ("...more") is
+ * left out rather than guessed.
  * Set `pending: true` on any entry to render it as a red "redline" placeholder.
  */
 window.PROFILE = {
@@ -34,7 +34,7 @@ window.PROFILE = {
   // Diagram lanes, top to bottom.
   lanes: [
     { id: "foundation", label: "Foundation" },
-    { id: "client", label: "Client work" },
+    { id: "client", label: "Mobile & clients" },
     { id: "web3", label: "Web3 projects" },
     { id: "bmo", label: "BMO" },
   ],
@@ -57,6 +57,21 @@ window.PROFILE = {
       ],
     },
     {
+      id: "premiere",
+      lane: "client",
+      kind: "Project",
+      title: "Premiere",
+      start: "2016-04",
+      end: "2017-05",
+      stack: ["Java", "Swift", "Xcode", "Android Studio", "HTTP + JSON"],
+      notes: [
+        "Find parties and events around the city on a map, and follow friends, clubs or promoters for updates.",
+        "Orchestrated the entire project: wireframes, user interface design and every feature.",
+        "Learned Android and iOS from scratch by researching Java and Swift and improving through trial and error.",
+        "Handled messages to servers and APIs through HTTP requests and JSON serialization.",
+      ],
+    },
+    {
       id: "codewater",
       lane: "client",
       kind: "iOS Developer",
@@ -74,10 +89,11 @@ window.PROFILE = {
       title: "Escy",
       start: "2017-06",
       end: "2017-08",
-      stack: ["iOS", "Android", "App Store", "Google Play"],
+      stack: ["Core Location", "Google Maps", "Firebase", "App Store", "Google Play"],
       notes: [
-        "App for finding barber shops and booking appointments.",
-        "Took it through release on the iOS App Store and Google Play Store.",
+        "Find barber shops nearby, book appointments and post promotions for your shop.",
+        "Implemented Core Location for current coordinates, Google Maps for shop locations and Firebase for server hosting.",
+        "Shipped the app to the iOS App Store and Google Play Store.",
       ],
     },
     {
@@ -87,8 +103,12 @@ window.PROFILE = {
       title: "CitySight",
       start: "2017-08",
       end: "2018-01",
-      stack: ["Swift", "Xcode", "iOS"],
-      notes: ["Dating app built independently for a client with Swift and Xcode."],
+      stack: ["Swift", "Xcode", "CocoaPods"],
+      notes: [
+        "Dating app for meeting people nearby by swiping on profiles or searching on your own.",
+        "Built the application independently for the client using Xcode and Swift.",
+        "Brought in libraries and frameworks through CocoaPods to make the app more efficient.",
+      ],
     },
     {
       id: "hikma",
@@ -111,10 +131,11 @@ window.PROFILE = {
       title: "Mango Heroes",
       start: "2021-11",
       end: "2022-04",
-      stack: ["React", "Solana", "NFT", "Mango Markets"],
+      stack: ["React", "Solana", "Metaplex Candy Machine", "Mango Markets"],
       notes: [
-        "NFT platform on the Solana blockchain.",
-        "Built the entire front-end website in React and owned the NFT integration into Mango Markets.",
+        "NFT platform on Solana: 7,000 generated comic-style artworks made available to buy through Metaplex's Candy Machine.",
+        "Created the entire front-end website in React, where users buy the NFT and view project info, social links and the whitepaper.",
+        "Integrated the NFT into Mango Markets, a Solana DeFi application.",
       ],
     },
     {
@@ -124,10 +145,11 @@ window.PROFILE = {
       title: "Parier",
       start: "2022-01",
       end: "2022-07",
-      stack: ["React", "Solana", "Smart contracts"],
+      stack: ["React", "@solana/web3.js", "Smart contracts"],
       notes: [
-        "Betting platform on the Solana blockchain.",
-        "Built the application in React and helped build and deploy its smart contracts.",
+        "Betting platform on Solana where users bet on what price a company's stock will open at in the next market session.",
+        "Constructed the entire application in React, using the Solana web3 library to talk to the Parier smart contracts.",
+        "Assisted in building the smart contracts and deploying them on the Solana blockchain.",
       ],
     },
     {
@@ -156,12 +178,14 @@ window.PROFILE = {
       start: "2022-06",
       end: "2023-01",
       place: "Toronto, Ontario · Remote",
-      stack: ["Team of 5+", "BitBucket", "Bamboo", "Artifactory", "Ansible"],
+      stack: ["Team of 5+", "BitBucket", "Bamboo", "Artifactory", "Ansible", "AWS ECS", "ECR", "DynamoDB"],
       notes: [
         "Led a team of 5+ developers on a branch technology web application.",
         "Developed the frontend for 4 web applications used by more than 800 branches across Canada.",
         "Kept development and business teams aligned on requirements.",
         "Set up the CI/CD pipeline on BitBucket, Bamboo, Artifactory and Ansible.",
+        "Set up AWS services for the project, including ECS, ECR and DynamoDB.",
+        "Maintained documentation of all technical information for every project.",
         "Spearheaded the Digitization team's interview process, hiring 10+ engineers.",
       ],
     },
@@ -192,11 +216,11 @@ window.PROFILE = {
 
   // Directed edges: what each stage fed into.
   edges: [
-    ["guelph", "codewater", "first role"],
+    ["premiere", "codewater", "first role"],
     ["codewater", "escy", "mobile"],
     ["escy", "citysight", ""],
     ["guelph", "dev", "graduated"],
-    ["dev", "hikma", "freelance"],
+    ["dev", "hikma", ""],
     ["mango", "parier", "Solana"],
     ["dev", "lead", "promoted"],
     ["lead", "techlead", "promoted"],
@@ -210,13 +234,13 @@ window.PROFILE = {
     { value: "−70%", unit: "build time", label: "after the Bamboo CI/CD overhaul", source: "dev" },
     { value: "80%", unit: "coverage", label: "unit test coverage held on the iOS apps", source: "dev" },
     { value: "5+", unit: "developers", label: "led on the branch technology web app", source: "lead" },
-    { value: "5+", unit: "iOS apps", label: "kept current with iOS and BMO standards", source: "dev" },
+    { value: "7,000", unit: "NFTs", label: "generated artworks sold through the site Yan built", source: "mango" },
   ],
 
   // Skills grouped the way a service catalog groups dependencies.
   capabilities: [
     { group: "Proficient", items: ["Angular", "JavaScript", "SCSS", "CSS", "HTML", "Swift", "Java", "C", "Python", "iOS", "Android"] },
     { group: "Familiar", items: ["Objective-C", "Spring Boot", "PHP", "React", "Solana"] },
-    { group: "Tooling", items: ["Xcode", "Android Studio", "Sketch", "BitBucket", "Bamboo", "Artifactory", "Ansible", "Azure AD"] },
+    { group: "Tooling", items: ["Xcode", "Android Studio", "Sketch", "BitBucket", "Bamboo", "Artifactory", "Ansible", "AWS", "Azure AD", "Firebase"] },
   ],
 };
