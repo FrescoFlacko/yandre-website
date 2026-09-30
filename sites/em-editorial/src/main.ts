@@ -7,7 +7,6 @@ const esc = (s: string) =>
 const t = (s: string) =>
   esc(s).replace(/\{\{(.+?)\}\}/g, (_, inner) => `<mark class="tbc" title="To be confirmed from LinkedIn">${inner}</mark>`);
 
-const hasTbc = (s: string) => s.includes("{{");
 
 interface Page {
   id: string;
@@ -65,10 +64,10 @@ const cover = `
   </div>
 </section>`;
 
-const draftNote = `
-<aside class="draft-note" role="note">
-  <mark class="tbc">Highlighted text</mark> is a placeholder awaiting details from the LinkedIn profile. Everything else is confirmed.
-</aside>`;
+// Shown only while some copy in profile.ts is still a {{placeholder}}.
+const draftNote = JSON.stringify(p).includes("{{")
+  ? `<aside class="draft-note" role="note"><mark class="tbc">Highlighted text</mark> is a placeholder awaiting confirmation. Everything else comes from the LinkedIn profile.</aside>`
+  : "";
 
 const contents = `
 <section class="page contents" id="contents">
@@ -92,7 +91,8 @@ const feature = `
   <div class="feature-body">
     ${f.paragraphs
       .map((para, i) => {
-        const pq = i === 2 ? `<blockquote class="pull">${t(f.pullQuote)}</blockquote>` : "";
+        const pq =
+          i === 2 ? `<figure class="pull"><blockquote>${t(f.pullQuote)}</blockquote><figcaption>${t(f.pullCredit)}</figcaption></figure>` : "";
         return `${pq}<p${i === 0 ? ' class="dropcap"' : ""}>${t(para)}</p>`;
       })
       .join("")}
@@ -107,12 +107,13 @@ const chronology = `
   <ol class="chron">
     ${p.chronology
       .map(
-        (r) => `<li class="${hasTbc(r.org) || hasTbc(r.years) ? "is-draft" : ""}">
+        (r) => `<li>
           <span class="chron-years">${t(r.years)}</span>
           <div class="chron-main">
             <h3>${t(r.title)}</h3>
-            <p class="chron-org">${t(r.org)}</p>
+            <p class="chron-org">${t(r.org)}${r.place ? `<span>${t(r.place)}</span>` : ""}</p>
             <p class="chron-dek">${t(r.dek)}</p>
+            ${r.notes ? `<ul class="chron-notes">${r.notes.map((n) => `<li>${t(n)}</li>`).join("")}</ul>` : ""}
           </div>
         </li>`,
       )
@@ -133,9 +134,9 @@ const playbook = `
 <section class="page playbook" id="playbook">
   ${folio("playbook")}
   <h2 class="section-title">The playbook</h2>
-  <p class="section-dek">How ${esc(p.firstName)} runs a team, in draft. These are placeholders until rewritten in ${esc(p.firstName)}'s own words.</p>
+  <p class="section-dek">Three habits that show up again and again in ${esc(p.firstName)}'s record.</p>
   <div class="rules">
-    ${p.playbook.map((r) => `<div class="rule"><h3>${t(r.title)}</h3><p>${t(r.body)}</p></div>`).join("")}
+    ${p.playbook.map((r) => `<div class="rule"><h3>${t(r.title)}</h3><p>${t(r.body)}</p><p class="evidence"><span>On the record</span>${t(r.evidence)}</p></div>`).join("")}
   </div>
 </section>`;
 
@@ -143,7 +144,7 @@ const kit = `
 <section class="page kit" id="kit">
   ${folio("kit")}
   <h2 class="section-title">The kit</h2>
-  <p class="section-dek">Everything ${esc(p.firstName)} has shipped with, from the original developer portfolio.</p>
+  <p class="section-dek">What ${esc(p.firstName)} builds and ships with, from LinkedIn and the original developer portfolio.</p>
   <dl class="kit-list">
     ${p.stack
       .map((g) => `<div><dt>${esc(g.group)}</dt><dd>${g.items.map((x) => `<span>${esc(x)}</span>`).join("")}</dd></div>`)
@@ -155,6 +156,7 @@ const questions = `
 <section class="page questions" id="questions">
   ${folio("questions")}
   <h2 class="section-title">Four questions</h2>
+  <p class="section-dek">Every answer is quoted from ${esc(p.firstName)}'s own LinkedIn profile.</p>
   <div class="qa">
     ${p.questions.map((x) => `<div><h3>${t(x.q)}</h3><p>${t(x.a)}</p></div>`).join("")}
   </div>

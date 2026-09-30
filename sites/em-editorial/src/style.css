@@ -284,11 +284,18 @@ mark.tbc::after {
 }
 .pull {
   break-inside: avoid;
-  margin: 0.4em 0 1.2em;
-  font: italic 500 clamp(1.5rem, 2.6vw, 2.1rem)/1.2 var(--display);
-  padding-block: 0.6em;
+  margin: 0.4em 0 1.4em;
+  padding-block: 0.8em;
   border-block: 3px solid var(--ink);
+  display: grid;
+  gap: 12px;
 }
+.pull blockquote {
+  margin: 0;
+  font: italic 500 clamp(1.5rem, 2.6vw, 2.1rem)/1.2 var(--display);
+}
+.pull blockquote::first-line { background: linear-gradient(transparent 55%, var(--hi) 55%, var(--hi) 90%, transparent 90%); color: inherit; }
+.pull figcaption { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
 .end {
   font: 900 1rem/1 var(--display);
   color: var(--ultra);
@@ -316,7 +323,11 @@ mark.tbc::after {
 }
 .chron-main { display: grid; gap: 6px; min-width: 0; }
 .chron h3 { font: 700 clamp(1.6rem, 3.4vw, 2.6rem)/1.05 var(--display); }
-.chron-org { font: 600 1rem/1.4 var(--body); }
+.chron-org { font: 600 1rem/1.4 var(--body); display: flex; gap: 14px; flex-wrap: wrap; align-items: baseline; }
+.chron-org span { font: 500 0.75rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.chron-notes { margin: 6px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; max-width: var(--measure); }
+.chron-notes li { padding-left: 1.4em; text-indent: -1.4em; }
+.chron-notes li::before { content: "¶"; color: var(--ultra); font-family: var(--display); display: inline-block; width: 1.4em; text-indent: 0; }
 .chron-dek { color: var(--muted); max-width: var(--measure); }
 
 /* Numbers */
@@ -343,6 +354,8 @@ mark.tbc::after {
   gap: clamp(24px, 4vw, 56px);
 }
 .rule { display: grid; gap: 14px; align-content: start; }
+.evidence { font-size: 0.92rem; color: var(--muted); }
+.evidence span { display: block; font: 500 0.7rem/1.6 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ultra); }
 .rule h3 {
   font: italic 500 clamp(1.7rem, 3vw, 2.4rem)/1.05 var(--display);
   padding-top: 18px;
@@ -376,6 +389,7 @@ mark.tbc::after {
 .qa div { display: grid; gap: 12px; align-content: start; }
 .qa h3 { font: 700 clamp(1.35rem, 2.4vw, 1.8rem)/1.15 var(--display); }
 .qa h3::before { content: "Q. "; color: var(--ultra); font-style: italic; }
+.qa p { font: italic 400 clamp(1.15rem, 1.8vw, 1.35rem)/1.4 var(--display); }
 
 /* Back page */
 .back {

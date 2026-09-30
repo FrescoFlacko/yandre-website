@@ -1,18 +1,19 @@
 // All of the site's content lives in this one file.
 //
-// Anything wrapped in {{double braces}} is a placeholder that has NOT been
-// confirmed against Yanique's LinkedIn profile. It renders with a yellow
-// "TBC" highlight so it can never be mistaken for fact. Replace the text
-// (and drop the braces) once the real detail is known.
+// Sources: Yanique's LinkedIn profile (screenshots shared in the project,
+// Sep 2026) and the tagline and stack from the original site in this repo.
 //
-// Confirmed so far: name, location (Brampton, ON), the tech stack and
-// taglines from the original site in this repo, GitHub and LinkedIn links.
+// Anything wrapped in {{double braces}} is an unconfirmed placeholder. It
+// renders with a yellow "TBC" highlight so it can never be mistaken for
+// fact. Replace the text (and drop the braces) once the detail is known.
 
 export interface Role {
   years: string;
   title: string;
   org: string;
+  place?: string;
   dek: string;
+  notes?: string[];
 }
 
 export interface Stat {
@@ -23,6 +24,7 @@ export interface Stat {
 export interface Principle {
   title: string;
   body: string;
+  evidence: string;
 }
 
 export interface QA {
@@ -34,11 +36,10 @@ export const profile = {
   name: "Yanique Andre",
   firstName: "Yanique",
   masthead: "YANDRE",
-  role: "Software Engineering Manager",
+  role: "Senior Technology Officer, BMO",
   location: "Brampton, Ontario",
   issue: "Vol. 01 · The Leadership Issue",
   season: "Fall 2026",
-  formerTagline: "Mobile & Web Developer",
   motto: ["Autodidact", "Polymath", "Human"],
 
   links: {
@@ -48,87 +49,135 @@ export const profile = {
   },
 
   coverLines: [
-    { kicker: "Cover story", text: "The autodidact who learned to lead" },
-    { kicker: "Inside", text: "From Swift and Kotlin to one-on-ones" },
-    { kicker: "Plus", text: "The playbook, the stack and ten questions" },
+    { kicker: "Cover story", text: "From Pokémon scripts to 800 bank branches" },
+    { kicker: "Inside", text: "Eight years, four titles, one bank" },
+    { kicker: "Plus", text: "The playbook behind 10+ hires" },
   ],
 
   feature: {
     headline: "The long way round to leadership",
-    dek: "Self-taught on iOS, Android and the web, Yanique Andre now helps a whole team ship.",
+    dek: "Yanique Andre started by hacking Pokémon games at twelve. Eight years into a career at BMO, the job is building the teams that build the software.",
     byline: "Feature · Brampton, ON",
     paragraphs: [
-      "Before the title said manager, it said Mobile & Web Developer, and underneath that, three words that still work as a job description: autodidact, polymath, human. The stack on that early portfolio reads like a map of a restless curiosity: Swift and Objective-C, Kotlin and Java, React and Angular, Spring Boot, Firebase and Parse.",
-      "That breadth is the through-line. {{A sentence on where Yanique started their career and what the first big project was, from LinkedIn.}}",
-      "{{The moment the move into management happened: the company, the team size, and what made them say yes.}}",
-      "Today Yanique leads as a software engineering manager {{at Company, TBC}}, where the work is less about which framework to pick and more about building the team that picks well.",
+      "The first program was a cheat. At twelve, Yanique Andre learned to hack and script Pokémon games, then kept pulling on the thread: C++, C#, Visual Basic and a handful of small frameworks, all before high school. By graduation the pattern was set. Learn it alone, then build something with it.",
+      "University changed the frame. A Bachelor of Computing in Computer Science at the University of Guelph brought algorithms, data structures, object-oriented design and patterns, and with them the realization that there is more to creating software than writing code that works. A summer as an iOS developer at Codewater Tech in Brampton put that into practice before the degree was finished.",
+      "In September 2018 Yanique joined BMO as a software developer on the Digitization team. The work was native iOS: lead developer on the EEMA project, keeping five-plus apps current with iOS and bank standards, owning certificates and production releases. A Bamboo pipeline cut build times by 70 percent and unit tests held coverage at 80 percent. On the side came a freelance stint consulting for Hikma360 on an Angular and Ionic app.",
+      "The shift to leading people came in 2022. As lead developer, Yanique ran a team of five-plus engineers on branch technology, shipped the front end of four web applications used in more than 800 branches across Canada, and spearheaded the interview process that brought more than ten engineers into the company. As technical lead, the scope widened to platform decisions, including Azure AD single sign-on for a branch scheduling app. Since February 2025 the title has been Senior Technology Officer.",
     ],
-    pullQuote: "{{A line Yanique actually says about leading engineers. Replace with a real quote.}}",
+    pullQuote: "“Tell me and I forget, teach me and I may remember, involve me and I learn.”",
+    pullCredit: "Benjamin Franklin, the line that opens Yanique's profile",
   },
 
   chronology: [
     {
-      years: "{{20XX – Now}}",
-      title: "Software Engineering Manager",
-      org: "{{Company TBC}}",
-      dek: "{{Team size, scope and one headline result from LinkedIn.}}",
+      years: "Feb 2025 – Now",
+      title: "Senior Technology Officer",
+      org: "BMO",
+      dek: "Senior technology leadership at BMO, eight years after joining as a developer.",
     },
     {
-      years: "{{20XX – 20XX}}",
-      title: "{{Senior / Lead Engineer}}",
-      org: "{{Company TBC}}",
-      dek: "{{What was built and what changed because of it.}}",
+      years: "Jan 2023 – Feb 2025",
+      title: "Technical Lead",
+      org: "BMO",
+      dek: "Set up the technology for a scheduling application used within branches, including an Azure AD project for single sign-on.",
     },
     {
-      years: "{{20XX – 20XX}}",
-      title: "Mobile & Web Developer",
-      org: "{{Company TBC}}",
-      dek: "Native iOS and Android alongside React and Angular front ends. {{Add the employer and dates.}}",
+      years: "Jun 2022 – Jan 2023",
+      title: "Lead Developer",
+      org: "BMO",
+      place: "Toronto · Remote",
+      dek: "Led a team of 5+ developers on a branch technology web application.",
+      notes: [
+        "Built the front end for 4 web apps used by 800+ branches across Canada",
+        "Kept development and business teams aligned on requirements",
+        "Set up CI/CD on Bitbucket, Bamboo, Artifactory and Ansible",
+        "Ran interviews for the Digitization team, hiring 10+ engineers",
+      ],
     },
     {
-      years: "{{20XX}}",
-      title: "{{Education}}",
-      org: "{{School TBC}}",
-      dek: "{{Degree or program from LinkedIn.}}",
+      years: "Nov 2019 – Mar 2020",
+      title: "Consultant",
+      org: "Hikma360 · Freelance",
+      place: "Toronto",
+      dek: "Consulted on and helped develop an app built with Angular and Ionic.",
+    },
+    {
+      years: "Sep 2018 – Jun 2022",
+      title: "Software Developer",
+      org: "BMO",
+      place: "Greater Toronto Area",
+      dek: "Lead developer on the EEMA project, from design through deployment.",
+      notes: [
+        "Maintained 5+ iOS apps for the Digitization team",
+        "Owned certificates and production releases for the iOS apps",
+        "Bamboo CI/CD that cut build time by 70%",
+        "Held unit test coverage at 80%",
+      ],
+    },
+    {
+      years: "Apr – Aug 2017",
+      title: "iOS Developer",
+      org: "Codewater Tech",
+      place: "Brampton",
+      dek: "Built the iOS application for the company's clients.",
+    },
+    {
+      years: "2013 – 2018",
+      title: "Bachelor of Computing (Honours), Computer Science",
+      org: "University of Guelph",
+      dek: "Volunteer note taker.",
     },
   ] as Role[],
 
   numbers: [
-    { value: "{{00}}", label: "engineers led" },
-    { value: "{{00}}", label: "years shipping software" },
-    { value: "{{00}}", label: "products launched" },
-    { value: "3", label: "platforms shipped natively: iOS, Android, web" },
+    { value: "800+", label: "BMO branches using apps Yanique's team built" },
+    { value: "10+", label: "engineers hired through the interview process Yanique ran" },
+    { value: "70%", label: "cut in build time from a Bamboo CI/CD pipeline" },
+    { value: "8", label: "years at BMO, across four roles" },
   ] as Stat[],
 
-  // Draft management principles. Written to fit the profile's tone; Yanique
-  // should rewrite these in their own words before the site goes public.
   playbook: [
     {
-      title: "Teach yourself, then teach the team",
-      body: "{{Draft: A self-taught engineer knows that the fastest way to learn is to ship something. I give people real problems early and stay close enough to catch them.}}",
+      title: "Involve people, don't just tell them",
+      body: "The Franklin line at the top of Yanique's profile doubles as a management style. People learn by doing the work, so the work gets shared early.",
+      evidence: "Kept development and business teams aligned on requirements as lead developer.",
     },
     {
-      title: "Breadth is a leadership skill",
-      body: "{{Draft: Having written Swift, Kotlin, Java and TypeScript means I can sit in any design review and ask the useful question.}}",
+      title: "Build the team on purpose",
+      body: "Hiring is the highest-leverage thing an engineering lead does, so it gets real time and a real process.",
+      evidence: "Spearheaded the Digitization team's interview process and hired 10+ engineers.",
     },
     {
-      title: "Human first",
-      body: "{{Draft: The third word on my old site was human. Delivery follows trust, and trust follows being straight with people.}}",
+      title: "Automate the path to production",
+      body: "Fast, boring releases give a team its time back. Invest in the pipeline before it hurts.",
+      evidence: "Bamboo CI/CD that cut build time by 70%, with unit test coverage held at 80%.",
     },
   ] as Principle[],
 
   stack: [
-    { group: "Front end", items: ["React", "Angular", "Gatsby", "TypeScript", "JavaScript", "HTML", "CSS", "Sass"] },
-    { group: "Back end", items: ["Java", "Spring Boot", "Firebase", "Parse"] },
-    { group: "Mobile", items: ["Swift", "Objective-C", "iOS SDK", "Kotlin", "Android"] },
-    { group: "Also", items: ["Python", "C", "Bash", "JSON"] },
-    { group: "Tools", items: ["Xcode", "Android Studio", "Sketch", "Visual Studio"] },
+    { group: "Proficient", items: ["Angular", "JavaScript", "SCSS", "CSS", "HTML", "Swift", "Java", "C", "Python", "iOS", "Android"] },
+    { group: "Familiar", items: ["Objective-C", "Spring Boot", "PHP"] },
+    { group: "Delivery", items: ["Bitbucket", "Bamboo", "Artifactory", "Ansible", "Azure AD"] },
+    { group: "Tools", items: ["Xcode", "Android Studio", "Sketch"] },
+    { group: "Also shipped", items: ["React", "TypeScript", "Kotlin", "Ionic", "Firebase", "Parse", "Gatsby"] },
   ],
 
   questions: [
-    { q: "What does a good week look like for your team?", a: "{{Yanique's answer.}}" },
-    { q: "What did writing native mobile code teach you about managing?", a: "{{Yanique's answer.}}" },
-    { q: "What do you look for when you hire?", a: "{{Yanique's answer.}}" },
-    { q: "What are you teaching yourself right now?", a: "{{Yanique's answer.}}" },
+    {
+      q: "How did it start?",
+      a: "“I was first introduced into programming when I learned how to hack and script Pokemon games at the age of 12.”",
+    },
+    {
+      q: "When did you know?",
+      a: "“I continued learning and working on applications throughout high school… This is when I knew I had a passion and gift for software development.”",
+    },
+    {
+      q: "What did university change?",
+      a: "“This made me realize there is more to creating software than just writing code and ensuring that it works.”",
+    },
+    {
+      q: "What comes next?",
+      a: "“I am pursuing career opportunities that offer challenges, have impactful missions, and provide opportunities to grow.”",
+    },
   ] as QA[],
 };
