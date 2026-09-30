@@ -10,21 +10,24 @@ export const LANDMARKS = {
   brampton: { waypoint: 0, focus: [140, 4, 97], offset: [-34, 40, 58], label: 'Brampton' },
   guelph: { waypoint: 4, focus: [42, 9, 72], offset: [38, 52, 74], label: 'University of Guelph' },
   codewater: { waypoint: 7, focus: [151, 5, 42], offset: [-30, 32, 52], label: 'Codewater Tech' },
-  union: { waypoint: 10, focus: [256, 8, 117], offset: [-20, 60, 54], label: 'Union Station' },
-  hikma: { waypoint: 12, focus: [291, 6, 134], offset: [36, 52, 58], label: 'Distillery District' },
-  lead: { waypoint: 17, lift: 0, focus: [268, 14, 104], offset: [4, 36, 78], label: 'The BMO tower' },
-  techlead: { waypoint: 17, lift: 36, focus: [266, 38, 104], offset: [8, 42, 92], label: 'The BMO tower' },
-  sto: { waypoint: 17, lift: 73, focus: [264, 70, 104], offset: [80, 34, 100], label: 'The BMO tower' },
-  toolkit: { waypoint: 19, focus: [255, 7, 66], offset: [0, 42, -36], label: 'Nathan Phillips Square' },
-  cntower: { waypoint: 22, focus: [233, 64, 137], offset: [92, 4, 150], label: 'CN Tower' },
+  apps: { waypoint: 9, focus: [176, 5, 130], offset: [34, 46, 60], label: 'Pearson Airport' },
+  union: { waypoint: 13, focus: [256, 8, 117], offset: [-20, 60, 54], label: 'Union Station' },
+  hikma: { waypoint: 15, focus: [291, 6, 134], offset: [36, 52, 58], label: 'Distillery District' },
+  web3: { waypoint: 16, focus: [289, 4, 146], offset: [6, 50, 48], label: 'Sugar Beach' },
+  lead: { waypoint: 21, lift: 0, focus: [268, 14, 104], offset: [4, 36, 78], label: 'The BMO tower' },
+  techlead: { waypoint: 21, lift: 36, focus: [266, 38, 104], offset: [8, 42, 92], label: 'The BMO tower' },
+  sto: { waypoint: 21, lift: 73, focus: [264, 70, 104], offset: [80, 34, 100], label: 'The BMO tower' },
+  toolkit: { waypoint: 23, focus: [255, 7, 66], offset: [0, 42, -36], label: 'Nathan Phillips Square' },
+  cntower: { waypoint: 26, focus: [233, 64, 137], offset: [92, 4, 150], label: 'CN Tower' },
 };
 
 // The golden journey path, in voxel (x, z).
 export const TRAIL = [
   [140, 102], [112, 102], [70, 102], [42, 96], [42, 82],
   [26, 82], [26, 40], [151, 38],
-  [213, 38], [213, 121], [262, 121],
-  [290, 121], [290, 131],
+  [182, 38], [182, 128],
+  [182, 112], [213, 112], [213, 121], [262, 121],
+  [290, 121], [290, 131], [290, 149],
   [290, 121], [297, 121], [297, 109], [269, 109], [269, 103],
   [269, 67], [255, 67],
   [241, 67], [241, 121], [239, 130],
@@ -37,7 +40,9 @@ export const HITBOXES = {
   brampton: [124, 2, 90, 157, 18, 113],
   guelph: [16, 4, 52, 70, 26, 84],
   codewater: [144, 2, 40, 158, 14, 50],
+  apps: [150, 2, 116, 181, 18, 146],
   union: [242, 2, 110, 268, 16, 120],
+  web3: [274, 2, 147, 304, 12, 153],
   hikma: [277, 2, 126, 305, 20, 144],
   lead: [256, 2, 98, 268, 78, 108],
   toolkit: [240, 2, 60, 270, 32, 96],
@@ -663,6 +668,17 @@ export function buildCity(season = 'autumn') {
       if (g.get(x, 2, z) !== C.sand && g.get(x, GY, z) !== C.sand) continue;
       g.set(x, GY + 1, z, C.white); g.set(x, GY + 2, z, C.white);
       for (let dx = -1; dx <= 1; dx++) for (let dz = -1; dz <= 1; dz++) g.set(x + dx, GY + 3, z + dz, C.umbrella);
+    }
+    // A giant mango on Sugar Beach, for Mango Heroes
+    {
+      const mango = P.add('#f29a2e', { jitter: 0.06 }), mangoRed = P.add('#e0582a', { jitter: 0.06 }), leaf = P.add('#3f8a35', { jitter: 0.08 });
+      const mx = 284, mz = 150, my = GY + 1;
+      for (let dy = 0; dy <= 5; dy++)
+        for (let dz = -2; dz <= 2; dz++)
+          for (let dx = -3; dx <= 3; dx++)
+            if (Math.hypot(dx / 3.2, (dy - 2.5) / 3, dz / 2.2) <= 1) g.set(mx + dx, my + dy, mz + dz, dx + dy > 3 ? mangoRed : mango);
+      g.set(mx, my + 6, mz, C.trunk);
+      g.set(mx + 1, my + 7, mz, leaf); g.set(mx + 2, my + 7, mz, leaf); g.set(mx + 2, my + 7, mz + 1, leaf);
     }
     // Ferry dock
     for (let z = 149; z <= 154; z++) for (let x = 261; x <= 263; x++) g.set(x, GY, z, C.wood);

@@ -61,6 +61,20 @@ export const chapters = [
     tags: ['iOS', 'Swift', 'Xcode'],
   },
   {
+    id: 'apps',
+    landmark: 'apps',
+    station: 'Apps',
+    kicker: 'Side projects · 2016 to 2018',
+    title: 'Cleared for takeoff',
+    lede: 'Learned Android and iOS by building real apps, from wireframe to store listing.',
+    items: [
+      { label: 'Premiere', detail: 'Apr 2016 to May 2017. Find parties and events around the city on a map, and follow friends, clubs and promoters. Wireframed, designed and built it in Xcode and Android Studio, learning Java and Swift along the way.' },
+      { label: 'Escy', detail: 'Jun to Aug 2017. Find barbershops nearby, book appointments and post promotions. Core Location, Google Maps and Firebase, shipped to the App Store and Google Play.' },
+      { label: 'CitySight', detail: 'Aug 2017 to Jan 2018. A swipe-to-match dating app built independently for a client in Swift, with libraries pulled in through CocoaPods.' },
+    ],
+    tags: ['Swift', 'Java', 'Firebase', 'Google Maps', 'CocoaPods'],
+  },
+  {
     id: 'union',
     landmark: 'union',
     station: 'Union',
@@ -84,6 +98,20 @@ export const chapters = [
     tags: ['Angular', 'Ionic', 'Freelance'],
   },
   {
+    id: 'web3',
+    landmark: 'web3',
+    station: 'Solana',
+    kicker: 'Side projects · 2021 to 2022',
+    title: 'Building on Solana',
+    lede: 'Two web3 products built end to end in React on the Solana blockchain.',
+    items: [
+      { label: 'Mango Heroes', detail: 'Nov 2021 to Apr 2022. An NFT platform selling 7,000 generated comic-style artworks through Metaplex Candy Machine. Built the entire React front end and integrated the NFT into Mango Markets, a Solana DeFi app.' },
+      { label: 'Parier', detail: 'Jan to Jul 2022. Bet on the price a company’s stock will open at in the next session. Built the whole app in React with @solana/web3.js and helped build and deploy the smart contracts.' },
+    ],
+    stats: [{ value: '7,000', label: 'NFT artworks' }, { value: '2', label: 'Solana projects' }],
+    tags: ['React', 'Solana', '@solana/web3.js', 'Metaplex', 'Smart contracts'],
+  },
+  {
     id: 'lead',
     landmark: 'lead',
     station: 'Lead Dev',
@@ -93,7 +121,9 @@ export const chapters = [
     items: [
       { label: 'Reach', detail: 'Built the frontend for 4 web applications used by more than 800 branches across Canada.' },
       { label: 'Bridge', detail: 'Kept development and business teams aligned on requirements.' },
-      { label: 'Pipeline', detail: 'Set up CI/CD on BitBucket, Bamboo, Artifactory and Ansible, and kept the technical documentation current.' },
+      { label: 'Pipeline', detail: 'Set up CI/CD on BitBucket, Bamboo, Artifactory and Ansible.' },
+      { label: 'Cloud', detail: 'Set up AWS services for the project, including ECS, ECR and DynamoDB.' },
+      { label: 'Docs', detail: 'Maintained documentation of all technical information for every project.' },
       { label: 'Hiring', detail: 'Spearheaded interviews for the Digitization team, bringing on 10+ engineers.' },
     ],
     stats: [{ value: '800+', label: 'branches' }, { value: '10+', label: 'engineers hired' }, { value: '4', label: 'web apps' }],
