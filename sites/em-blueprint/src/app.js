@@ -60,6 +60,7 @@
   // Assign each node a row within its lane so boxes never overlap.
   const layout = {};
   const laneRows = {};
+  const lastRow = {};
   sorted.forEach((n) => {
     const x0 = x(toYear(n.start));
     const scaled = x(toYear(n.end)) - x0;
@@ -68,8 +69,11 @@
     let bx = x0;
     if (bx + w > W - RIGHT) bx = W - RIGHT - w; // keep label on the sheet
     const rows = (laneRows[n.lane] = laneRows[n.lane] || []);
-    let r = rows.findIndex((end) => end + 10 < bx);
+    // Search from the previous box's row downward so a lane reads as a staircase in time order.
+    const from = lastRow[n.lane] || 0;
+    let r = rows.findIndex((end, i) => i >= from && end + 10 < bx);
     if (r === -1) { r = rows.length; rows.push(0); }
+    lastRow[n.lane] = r;
     rows[r] = bx + w;
     layout[n.id] = { n, bx, w, x0, x1: x0 + scaled, row: r };
   });
