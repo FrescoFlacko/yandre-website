@@ -206,7 +206,7 @@ export const profile = {
       name: "Premiere",
       years: "Apr 2016 – May 2017",
       what: "A map of parties and events around the city, with updates from the friends, clubs and promoters you follow.",
-      did: "Ran the whole project from wireframes and UI design to features, teaching the Java and Swift needed to ship on Android and iOS along the way.",
+      did: "Ran the whole project from wireframes and UI design to features, learning Java and Swift by trial and error to ship on Android and iOS.",
       tech: ["Swift", "Java", "Android Studio"],
     },
   ] as Project[],
