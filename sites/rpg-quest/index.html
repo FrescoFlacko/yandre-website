@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Yandre Quest</title>
+    <meta name="description" content="Yanique Andre's career as a playable pixel-art RPG, with a plain résumé below." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap"
+    />
+    <link rel="stylesheet" href="./src/style.css" />
+    <script type="module" src="./src/main.ts"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <span class="logo">YANDRE QUEST</span>
+      <a class="skip" href="#resume">Skip to résumé</a>
+    </header>
+
+    <main>
+      <section class="console" aria-label="Playable career map">
+        <div class="screen" id="screen" tabindex="0" aria-describedby="controls-help">
+          <canvas id="game" width="320" height="224" aria-hidden="true"></canvas>
+
+          <div class="hud" id="hud" hidden>
+            <span id="hud-badges">BADGES 0/7</span>
+            <span class="hud-hint">ENTER: MENU</span>
+          </div>
+
+          <div class="title" id="title">
+            <p class="title-kicker">A career in 8 bits</p>
+            <h1 class="title-logo">YANDRE<br />QUEST</h1>
+            <p class="title-sub">Starring Yanique Andre</p>
+            <div class="title-menu" role="menu">
+              <button type="button" id="btn-start" role="menuitem">▶ PRESS START</button>
+              <a href="#resume" role="menuitem">READ THE RÉSUMÉ</a>
+            </div>
+          </div>
+
+          <div class="dialog" id="dialog" hidden>
+            <p class="dialog-who" id="dialog-who"></p>
+            <p class="dialog-text" id="dialog-text" aria-hidden="true"></p>
+            <p class="sr-only" id="dialog-live" aria-live="polite"></p>
+            <span class="dialog-next" aria-hidden="true">▼</span>
+          </div>
+
+          <div class="menu" id="menu" hidden>
+            <ul class="menu-list" id="menu-list" role="menu"></ul>
+            <div class="menu-body" id="menu-body"></div>
+          </div>
+        </div>
+
+        <div class="pad" aria-label="Game controls">
+          <div class="dpad">
+            <button type="button" class="d-up" data-dir="up" aria-label="Up">▲</button>
+            <button type="button" class="d-left" data-dir="left" aria-label="Left">◀</button>
+            <button type="button" class="d-right" data-dir="right" aria-label="Right">▶</button>
+            <button type="button" class="d-down" data-dir="down" aria-label="Down">▼</button>
+          </div>
+          <div class="mid">
+            <button type="button" class="pill" data-key="start">START</button>
+          </div>
+          <div class="ab">
+            <button type="button" class="round b" data-key="b" aria-label="B, back">B</button>
+            <button type="button" class="round a" data-key="a" aria-label="A, talk">A</button>
+          </div>
+        </div>
+        <p class="controls" id="controls-help">
+          Arrow keys or WASD to walk. Z, Space or A to talk and read. X or B to go back. Enter for the menu. Walk into a door to go inside.
+        </p>
+      </section>
+
+      <section class="resume" id="resume" aria-label="Résumé"></section>
+    </main>
+  </body>
+</html>
