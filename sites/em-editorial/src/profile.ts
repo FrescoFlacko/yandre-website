@@ -27,6 +27,14 @@ export interface Principle {
   evidence: string;
 }
 
+export interface Project {
+  name: string;
+  years: string;
+  what: string;
+  did: string;
+  tech: string[];
+}
+
 export interface QA {
   q: string;
   a: string;
@@ -91,6 +99,8 @@ export const profile = {
         "Built the front end for 4 web apps used by 800+ branches across Canada",
         "Kept development and business teams aligned on requirements",
         "Set up CI/CD on Bitbucket, Bamboo, Artifactory and Ansible",
+        "Set up AWS services for the project, including ECS, ECR and DynamoDB",
+        "Maintained technical documentation for every project",
         "Ran interviews for the Digitization team, hiring 10+ engineers",
       ],
     },
@@ -157,10 +167,49 @@ export const profile = {
   stack: [
     { group: "Proficient", items: ["Angular", "JavaScript", "SCSS", "CSS", "HTML", "Swift", "Java", "C", "Python", "iOS", "Android"] },
     { group: "Familiar", items: ["Objective-C", "Spring Boot", "PHP"] },
-    { group: "Delivery", items: ["Bitbucket", "Bamboo", "Artifactory", "Ansible", "Azure AD"] },
+    { group: "Delivery", items: ["Bitbucket", "Bamboo", "Artifactory", "Ansible", "AWS", "Azure AD"] },
     { group: "Tools", items: ["Xcode", "Android Studio", "Sketch"] },
-    { group: "Also shipped", items: ["React", "TypeScript", "Kotlin", "Ionic", "Firebase", "Parse", "Gatsby"] },
+    { group: "Also shipped", items: ["React", "TypeScript", "Kotlin", "Ionic", "Firebase", "Parse", "Solana", "Gatsby"] },
   ],
+
+  // Side projects, newest first, from the Projects section of LinkedIn.
+  projects: [
+    {
+      name: "Parier",
+      years: "Jan – Jul 2022",
+      what: "A betting platform on the Solana blockchain where users bet on the price a company's stock will open at in the next market session.",
+      did: "Built the entire application in React, talking to the Parier smart contracts through @solana/web3, and helped build and deploy the contracts.",
+      tech: ["React", "Solana", "Smart contracts"],
+    },
+    {
+      name: "Mango Heroes",
+      years: "Nov 2021 – Apr 2022",
+      what: "An NFT platform on Solana offering 7,000 generated comic-style artworks through Metaplex's Candy Machine.",
+      did: "Built the whole front-end site in React for buying the NFTs, and integrated them into Mango Markets, a Solana DeFi app.",
+      tech: ["React", "Solana", "Metaplex"],
+    },
+    {
+      name: "CitySight",
+      years: "Aug 2017 – Jan 2018",
+      what: "A dating app for meeting people nearby by swiping on profiles or searching directly.",
+      did: "Built the app independently for the client in Swift, using CocoaPods libraries to make it more efficient.",
+      tech: ["Swift", "Xcode", "CocoaPods"],
+    },
+    {
+      name: "Escy",
+      years: "Jun – Aug 2017",
+      what: "Find nearby barbershops, book appointments and post promotions for your shop.",
+      did: "Built location with Core Location, maps with Google Maps and the back end on Firebase, then shipped it to the App Store and Google Play.",
+      tech: ["iOS", "Android", "Firebase"],
+    },
+    {
+      name: "Premiere",
+      years: "Apr 2016 – May 2017",
+      what: "A map of parties and events around the city, with updates from the friends, clubs and promoters you follow.",
+      did: "Ran the whole project from wireframes and UI design to features, teaching the Java and Swift needed to ship on Android and iOS along the way.",
+      tech: ["Swift", "Java", "Android Studio"],
+    },
+  ] as Project[],
 
   questions: [
     {

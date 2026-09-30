@@ -21,6 +21,7 @@ const pages: Page[] = [
   { id: "chronology", folio: "10", label: "The chronology" },
   { id: "numbers", folio: "12", label: "By the numbers" },
   { id: "playbook", folio: "14", label: "The playbook" },
+  { id: "projects", folio: "16", label: "Side projects" },
   { id: "kit", folio: "18", label: "The kit" },
   { id: "questions", folio: "20", label: "Four questions" },
   { id: "back", folio: "24", label: "Back page" },
@@ -140,6 +141,26 @@ const playbook = `
   </div>
 </section>`;
 
+const projects = `
+<section class="page projects" id="projects">
+  ${folio("projects")}
+  <h2 class="section-title">Side projects</h2>
+  <p class="section-dek">Five apps built outside the day job, from a Toronto party map in 2016 to Solana in 2022.</p>
+  <div class="proj-grid">
+    ${p.projects
+      .map(
+        (x) => `<article class="proj">
+          <p class="proj-years">${t(x.years)}</p>
+          <h3>${t(x.name)}</h3>
+          <p class="proj-what">${t(x.what)}</p>
+          <p class="proj-did">${t(x.did)}</p>
+          <p class="proj-tech">${x.tech.map(esc).join(" · ")}</p>
+        </article>`,
+      )
+      .join("")}
+  </div>
+</section>`;
+
 const kit = `
 <section class="page kit" id="kit">
   ${folio("kit")}
@@ -185,6 +206,7 @@ ${cover}
   ${chronology}
   ${numbers}
   ${playbook}
+  ${projects}
   ${kit}
   ${questions}
   ${back}

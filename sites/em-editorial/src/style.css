@@ -362,6 +362,25 @@ mark.tbc::after {
   border-top: 6px solid var(--ultra);
 }
 
+/* Side projects */
+.proj-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 0 clamp(24px, 4vw, 48px);
+}
+.proj {
+  display: grid;
+  gap: 10px;
+  align-content: start;
+  padding-block: 24px;
+  border-top: 1px solid var(--ink);
+}
+.proj-years { font: 500 0.75rem/1.2 var(--mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ultra); }
+.proj h3 { font: italic 700 clamp(2rem, 4vw, 3rem)/0.95 var(--display); letter-spacing: -0.02em; }
+.proj-what { font: 400 1.15rem/1.35 var(--display); }
+.proj-did { color: var(--muted); font-size: 0.95rem; }
+.proj-tech { font: 500 0.72rem/1.4 var(--mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
 /* Kit */
 .kit-list { margin: 0; display: grid; }
 .kit-list div {
