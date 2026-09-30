@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+</head>
+<body>
+<title>Yan's System Blueprint</title>
+<meta name="description" content="Yanique Andre's engineering leadership portfolio, drawn as a system blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=B612+Mono&family=Saira+Extra+Condensed:wght@500;600;700&display=swap">
+<style>
+/* Layout: one drawing sheet on blueprint grid. Title block up top, the career
+   drawn as a to-scale architecture diagram, a spec sheet beside it, then an
+   ops console and the operating SLOs. Placeholders render as redline notes. */
+:root {
+  /* Whiteprint (diazo) sheet: light theme */
+  --paper: #eef1f5;
+  --paper-2: #e2e8f0;
+  --line: #1c3f91;
+  --line-dim: rgba(28, 63, 145, 0.38);
+  --grid-minor: rgba(28, 63, 145, 0.06);
+  --grid-major: rgba(28, 63, 145, 0.13);
+  --ink: #12234d;
+  --muted: #50638f;
+  --redline: #c7361c;
+  --redline-wash: rgba(199, 54, 28, 0.08);
+  --console: #0f2449;
+  --console-ink: #d9e8ff;
+  --console-dim: #87a3cf;
+
+  --f-display: "Saira Extra Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --f-body: "Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "B612 Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.8rem;
+  --step-5: clamp(3.2rem, 11vw, 7.5rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #123a67;
+    --paper-2: #0e3059;
+    --line: #d4e6ff;
+    --line-dim: rgba(212, 230, 255, 0.4);
+    --grid-minor: rgba(255, 255, 255, 0.045);
+    --grid-major: rgba(255, 255, 255, 0.1);
+    --ink: #eef5ff;
+    --muted: #a3bfe0;
+    --redline: #ff7a57;
+    --redline-wash: rgba(255, 122, 87, 0.1);
+    --console: #0a2244;
+    --console-ink: #d9e8ff;
+    --console-dim: #87a3cf;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #123a67;
+  --paper-2: #0e3059;
+  --line: #d4e6ff;
+  --line-dim: rgba(212, 230, 255, 0.4);
+  --grid-minor: rgba(255, 255, 255, 0.045);
+  --grid-major: rgba(255, 255, 255, 0.1);
+  --ink: #eef5ff;
+  --muted: #a3bfe0;
+  --redline: #ff7a57;
+  --redline-wash: rgba(255, 122, 87, 0.1);
+  --console: #0a2244;
+  --console-ink: #d9e8ff;
+  --console-dim: #87a3cf;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background-color: var(--paper);
+  background-image:
+    linear-gradient(var(--grid-major) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-major) 1px, transparent 1px),
+    linear-gradient(var(--grid-minor) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  color: var(--ink);
+  font-family: var(--f-body);
+  font-size: var(--step-0);
+  line-height: 1.55;
+}
+a { color: inherit; text-decoration-color: var(--line-dim); text-underline-offset: 3px; }
+a:hover { text-decoration-color: currentColor; }
+:focus-visible { outline: 2px dashed var(--redline); outline-offset: 3px; }
+
+.sheet {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding-inline: 16px;
+  padding-block: 28px 48px;
+  display: grid;
+  gap: 40px;
+}
+@media (min-width: 720px) { .sheet { padding-inline: 32px; } }
+
+.label {
+  font-family: var(--f-mono);
+  font-size: var(--step--1);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* ---------- Title block ---------- */
+.titleblock {
+  border: 2px solid var(--line);
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.tb-main {
+  padding: 24px;
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+.tb-main h1 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: var(--step-5);
+  line-height: 0.86;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+.tb-main .role {
+  font-family: var(--f-display);
+  font-size: var(--step-2);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--line);
+  margin: 0;
+}
+.tb-main p.summary { margin: 6px 0 0; max-width: 62ch; }
+.tb-cells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  border-top: 2px solid var(--line);
+}
+.tb-cell {
+  padding: 10px 14px;
+  border-right: 1px solid var(--line-dim);
+  border-bottom: 1px solid var(--line-dim);
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.tb-cell .v {
+  font-family: var(--f-mono);
+  font-size: 0.92rem;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+@media (min-width: 900px) {
+  .titleblock { grid-template-columns: minmax(0, 1fr) 360px; }
+  .tb-cells { border-top: 0; border-left: 2px solid var(--line); grid-template-columns: 1fr 1fr; align-content: stretch; }
+}
+
+/* ---------- Redline placeholders ---------- */
+.redline {
+  color: var(--redline);
+  border: 1.5px dashed var(--redline);
+  background: var(--redline-wash);
+  padding: 8px 12px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+.redline::before {
+  content: "REDLINE · needs LinkedIn data";
+  display: block;
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 2px;
+}
+.revtag {
+  font-family: var(--f-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  color: var(--redline);
+  border: 1px solid var(--redline);
+  padding: 1px 6px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+
+/* ---------- Section heads ---------- */
+.section { display: grid; gap: 16px; }
+.section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 8px 16px;
+  border-bottom: 1px solid var(--line-dim);
+  padding-bottom: 6px;
+}
+.section-head h2 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-weight: 600;
+  font-size: var(--step-2);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.section-head .label { margin-left: auto; }
+
+/* ---------- Diagram + spec ---------- */
+.arch {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 1000px) { .arch { grid-template-columns: minmax(0, 1fr) 320px; align-items: start; } }
+.diagram-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line-dim);
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  min-width: 0;
+}
+.diagram-wrap svg { display: block; width: 100%; min-width: 700px; height: auto; }
+.diagram-hint { margin: 0; color: var(--muted); font-size: 0.9rem; }
+
+svg text { font-family: var(--f-mono); fill: var(--ink); }
+svg .axis line { stroke: var(--line-dim); }
+svg .axis text { fill: var(--muted); font-size: 11px; }
+svg .lane-rule { stroke: var(--line-dim); stroke-dasharray: 2 6; }
+svg .lane-label { fill: var(--muted); font-size: 11px; letter-spacing: 0.08em; }
+svg .edge { fill: none; stroke: var(--line); stroke-width: 1.4; stroke-dasharray: 6 5; animation: flow 1.2s linear infinite; }
+svg .edge-label { font-size: 10px; fill: var(--muted); paint-order: stroke; stroke: var(--paper); stroke-width: 4px; stroke-linejoin: round; }
+svg .arrow { fill: var(--line); }
+svg .node { cursor: pointer; }
+svg .node rect.box { fill: var(--paper); stroke: var(--line); stroke-width: 1.6; transition: fill 0.15s; }
+svg .node .title { font-size: 13px; font-weight: 700; }
+svg .node .kind { font-size: 9.5px; fill: var(--muted); letter-spacing: 0.08em; }
+svg .node .port { fill: var(--paper); stroke: var(--line); stroke-width: 1.4; }
+svg .node:hover rect.box, svg .node:focus-visible rect.box { fill: var(--paper-2); }
+svg .node.active rect.box { fill: var(--line); }
+svg .node.active text { fill: var(--paper); }
+svg .node.pending rect.box { stroke: var(--redline); stroke-dasharray: 5 4; }
+svg .node.pending .kind { fill: var(--redline); }
+svg .node.active.pending rect.box { fill: var(--redline); }
+svg .node:focus { outline: none; }
+svg .node:focus-visible rect.box { stroke-width: 3; }
+svg .now line { stroke: var(--redline); stroke-width: 1.2; }
+svg .now text { fill: var(--redline); font-size: 10px; letter-spacing: 0.08em; }
+@keyframes flow { to { stroke-dashoffset: -22; } }
+
+.spec {
+  border: 2px solid var(--line);
+  background: var(--paper);
+  display: grid;
+  align-content: start;
+  min-width: 0;
+}
+.spec header { padding: 12px 16px; border-bottom: 1px solid var(--line-dim); display: grid; gap: 2px; }
+.spec h3 {
+  margin: 0;
+  font-family: var(--f-display);
+  font-size: 1.9rem;
+  line-height: 1;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.spec dl { margin: 0; display: grid; grid-template-columns: auto 1fr; }
+.spec dt, .spec dd { margin: 0; padding: 8px 16px; border-bottom: 1px solid var(--line-dim); }
+.spec dt { padding-right: 0; }
+.spec dd { font-family: var(--f-mono); font-size: 0.9rem; font-variant-numeric: tabular-nums; min-width: 0; overflow-wrap: anywhere; }
+.spec ul.notes { margin: 0; padding: 12px 16px 12px 34px; display: grid; gap: 6px; }
+.spec .deps { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 16px; }
+.chip {
+  font-family: var(--f-mono);
+  font-size: 0.75rem;
+  border: 1px solid var(--line-dim);
+  padding: 2px 8px;
+}
+.spec .redline { margin: 12px 16px; }
+
+/* ---------- Console ---------- */
+.ops { display: grid; gap: 20px; grid-template-columns: 1fr; }
+@media (min-width: 1000px) { .ops { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); } }
+.console {
+  background: var(--console);
+  color: var(--console-ink);
+  font-family: var(--f-mono);
+  font-size: 0.88rem;
+  border: 2px solid var(--line);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 380px;
+  min-width: 0;
+}
+.console-bar {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px 14px;
+  border-bottom: 1px solid rgba(217, 232, 255, 0.2);
+  color: var(--console-dim);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.console-bar .ok::before { content: "● "; color: #6fe3a4; }
+.console-out {
+  padding: 12px 14px;
+  overflow-y: auto;
+  max-height: 360px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.console-out .cmd { color: #ffffff; }
+.console-out .dim { color: var(--console-dim); }
+.console-out .warn { color: #ffab91; }
+.console-out a { color: #9fd0ff; }
+.console-in {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid rgba(217, 232, 255, 0.2);
+}
+.console-in label { color: #9fd0ff; white-space: nowrap; }
+.console-in input {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: 0;
+  color: var(--console-ink);
+  font: inherit;
+  caret-color: #ffab91;
+}
+.console-in input:focus { outline: none; }
+.console:focus-within { outline: 2px dashed var(--redline); outline-offset: 3px; }
+.quick { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 12px; }
+.quick button {
+  font: inherit;
+  font-size: 0.75rem;
+  color: var(--console-ink);
+  background: transparent;
+  border: 1px solid rgba(217, 232, 255, 0.35);
+  padding: 3px 9px;
+  cursor: pointer;
+}
+.quick button:hover { border-color: var(--console-ink); }
+
+/* ---------- Catalog / SLOs ---------- */
+.catalog { display: grid; gap: 12px; align-content: start; }
+.dep-group { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px; align-items: baseline; border-bottom: 1px solid var(--line-dim); padding-bottom: 10px; }
+.dep-group .items { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.metrics { display: grid; grid-template-columns: 1fr; border-top: 2px solid var(--line); border-left: 1px solid var(--line-dim); }
+@media (min-width: 520px) { .metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 900px) { .metrics { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+.metric { padding: 16px; border-right: 1px solid var(--line-dim); border-bottom: 1px solid var(--line-dim); display: grid; gap: 6px; align-content: start; min-width: 0; }
+.metric .reading { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.metric .val { font-family: var(--f-display); font-weight: 700; font-size: 3.4rem; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.metric .unit { font-family: var(--f-mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--line); }
+.metric p { margin: 0; }
+.metric .src { justify-self: start; font-family: var(--f-mono); font-size: 0.75rem; color: var(--muted); background: none; border: 0; border-bottom: 1px dashed var(--line-dim); padding: 2px 0; cursor: pointer; }
+.metric .src:hover { color: var(--ink); border-bottom-color: currentColor; }
+.quote { margin: 8px 0 0; padding-left: 14px; border-left: 2px solid var(--line); max-width: 60ch; }
+.quote p { margin: 0; font-style: italic; font-size: 1.1rem; }
+.quote cite { font-family: var(--f-mono); font-style: normal; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+/* ---------- Revision log ---------- */
+.revs { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.revs-wrap { overflow-x: auto; }
+.revs th, .revs td { text-align: left; padding: 8px 12px 8px 0; border-bottom: 1px solid var(--line-dim); vertical-align: top; }
+.revs th { font-family: var(--f-mono); font-weight: 400; font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.revs td.rev { font-family: var(--f-display); font-size: 1.4rem; font-weight: 700; width: 3rem; }
+.revs td.date { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.revs tr.pending td { color: var(--redline); }
+
+footer.foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  justify-content: space-between;
+  border-top: 2px solid var(--line);
+  padding-top: 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  svg .edge { animation: none; }
+  * { transition: none !important; }
+}
+
+</style>
+
+<main class="sheet">
+  <header class="titleblock" aria-label="Title block">
+    <div class="tb-main">
+      <span class="label" id="tb-tagline">System architecture</span>
+      <h1 id="tb-name">Yanique Andre</h1>
+      <p class="role" id="tb-role"></p>
+      <div id="tb-summary"></div>
+    </div>
+    <div class="tb-cells" id="tb-cells"></div>
+  </header>
+
+  <section class="section" aria-labelledby="arch-h">
+    <div class="section-head">
+      <h2 id="arch-h">Architecture</h2>
+      <span class="label">Drawn to scale · 1 column = 1 year</span>
+    </div>
+    <div class="arch">
+      <div class="section" style="gap:8px">
+        <div class="diagram-wrap" id="diagram"></div>
+        <p class="diagram-hint">Select any box to read its spec. The solid bar under each box is its true duration.</p>
+      </div>
+      <aside class="spec" id="spec" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ops-h">
+    <div class="section-head">
+      <h2 id="ops-h">Ops console</h2>
+      <span class="label">Type <b>help</b> or tap a command</span>
+    </div>
+    <div class="ops">
+      <div class="console" id="console">
+        <div class="console-bar"><span>yan@blueprint:~</span><span class="ok">all systems nominal</span></div>
+        <div class="console-out" id="console-out" role="log" aria-live="polite"></div>
+        <div>
+          <div class="quick" id="quick"></div>
+          <form class="console-in" id="console-form" autocomplete="off">
+            <label for="console-input">$</label>
+            <input id="console-input" type="text" spellcheck="false" autocapitalize="off" aria-label="Console command">
+          </form>
+        </div>
+      </div>
+      <div class="catalog">
+        <div class="section-head"><h2 style="font-size:var(--step-1)">Dependencies</h2><span class="label">Skills in use</span></div>
+        <div id="catalog"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tel-h">
+    <div class="section-head">
+      <h2 id="tel-h">Telemetry</h2>
+      <span class="label">Impact readings, each traced to its source role</span>
+    </div>
+    <div class="metrics" id="metrics"></div>
+  </section>
+
+  <section class="section" aria-labelledby="rev-h">
+    <div class="section-head">
+      <h2 id="rev-h">Revision log</h2>
+      <span class="label">Every change to the system, oldest first</span>
+    </div>
+    <div class="revs-wrap"><table class="revs" id="revs"></table></div>
+  </section>
+
+  <footer class="foot">
+    <span class="label" id="foot-left"></span>
+    <span class="label" id="foot-links"></span>
+  </footer>
+</main>
+
+<script>
+/*
+ * All profile content for the blueprint site lives here.
+ *
+ * Source: Yan's LinkedIn profile screenshots (2026-09-30) plus public LinkedIn
+ * search snippets for the Projects section (Escy, CitySight, Mango Heroes,
+ * Parier). Truncated LinkedIn text ("...more") is left out rather than guessed.
+ * Set `pending: true` on any entry to render it as a red "redline" placeholder.
+ */
+window.PROFILE = {
+  name: "Yanique Andre",
+  callsign: "yan",
+  headline: "Senior Technology Officer, BMO",
+  tagline: "Engineering leadership",
+  location: "Brampton, Ontario, Canada",
+  linkedin: "https://www.linkedin.com/in/yanique-andre",
+  github: "https://github.com/FrescoFlacko",
+
+  quote: {
+    text: "Tell me and I forget, teach me and I may remember, involve me and I learn.",
+    by: "Benjamin Franklin",
+  },
+  summary: {
+    text:
+      "First introduced to programming by hacking and scripting Pokémon games at 12. " +
+      "University showed there is more to creating software than writing code that works: " +
+      "algorithms, data structures, design patterns. Today: a dedicated, curious self-learner " +
+      "who went from shipping iOS apps to leading the teams that build BMO's branch technology.",
+  },
+
+  // First professional role; drives the console's `uptime`.
+  firstShip: "2017-04-01",
+  firstShipLabel: "Codewater Tech",
+
+  // Diagram lanes, top to bottom.
+  lanes: [
+    { id: "foundation", label: "Foundation" },
+    { id: "client", label: "Client work" },
+    { id: "web3", label: "Web3 projects" },
+    { id: "bmo", label: "BMO" },
+  ],
+
+  // Each node is one box on the architecture diagram, placed to scale by date.
+  // `end: null` means ongoing.
+  nodes: [
+    {
+      id: "guelph",
+      lane: "foundation",
+      kind: "Education",
+      title: "University of Guelph",
+      start: "2013-09",
+      end: "2018-04",
+      stack: ["Algorithms", "Data structures", "OOP", "Design patterns", "Databases", "Networks"],
+      notes: [
+        "Bachelor of Computing: Honours, Computer Science, 2013 to 2018.",
+        "Activities: Volunteer Note Taker.",
+        "Coursework included Software Engineering and Software System Development & Integration.",
+      ],
+    },
+    {
+      id: "codewater",
+      lane: "client",
+      kind: "iOS Developer",
+      title: "Codewater Tech",
+      start: "2017-04",
+      end: "2017-08",
+      place: "Brampton, ON",
+      stack: ["iOS", "Swift", "Xcode"],
+      notes: ["Executed the development of the iOS application for the company's clients."],
+    },
+    {
+      id: "escy",
+      lane: "client",
+      kind: "Project",
+      title: "Escy",
+      start: "2017-06",
+      end: "2017-08",
+      stack: ["iOS", "Android", "App Store", "Google Play"],
+      notes: [
+        "App for finding barber shops and booking appointments.",
+        "Took it through release on the iOS App Store and Google Play Store.",
+      ],
+    },
+    {
+      id: "citysight",
+      lane: "client",
+      kind: "Project",
+      title: "CitySight",
+      start: "2017-08",
+      end: "2018-01",
+      stack: ["Swift", "Xcode", "iOS"],
+      notes: ["Dating app built independently for a client with Swift and Xcode."],
+    },
+    {
+      id: "hikma",
+      lane: "client",
+      kind: "Consultant · Freelance",
+      title: "Hikma360",
+      start: "2019-11",
+      end: "2020-03",
+      place: "Toronto, Ontario",
+      stack: ["Angular", "Ionic"],
+      notes: [
+        "Freelance consultant who aided in development of the product, built with Angular and Ionic.",
+        "A client testimonial is attached to this role on LinkedIn.",
+      ],
+    },
+    {
+      id: "mango",
+      lane: "web3",
+      kind: "Project",
+      title: "Mango Heroes",
+      start: "2021-11",
+      end: "2022-04",
+      stack: ["React", "Solana", "NFT", "Mango Markets"],
+      notes: [
+        "NFT platform on the Solana blockchain.",
+        "Built the entire front-end website in React and owned the NFT integration into Mango Markets.",
+      ],
+    },
+    {
+      id: "parier",
+      lane: "web3",
+      kind: "Project",
+      title: "Parier",
+      start: "2022-01",
+      end: "2022-07",
+      stack: ["React", "Solana", "Smart contracts"],
+      notes: [
+        "Betting platform on the Solana blockchain.",
+        "Built the application in React and helped build and deploy its smart contracts.",
+      ],
+    },
+    {
+      id: "dev",
+      lane: "bmo",
+      kind: "BMO · Full-time",
+      title: "Software Developer",
+      start: "2018-09",
+      end: "2022-06",
+      place: "Greater Toronto Area",
+      stack: ["iOS", "Bamboo", "CI/CD", "Unit testing"],
+      notes: [
+        "Lead developer for the EEMA project: software design, development, testing and deployment.",
+        "Coordinated maintenance of 5+ iOS applications under the Digitization team, keeping them current with iOS and BMO standards.",
+        "Organized certificates, developer certificates and distribution certificates.",
+        "Archived, exported and deployed the iOS apps to production.",
+        "Oversaw the DevOps CI/CD setup in Bamboo, cutting overall build time by 70%.",
+        "Wrote unit tests to hold 80% code coverage.",
+      ],
+    },
+    {
+      id: "lead",
+      lane: "bmo",
+      kind: "BMO · Full-time",
+      title: "Lead Developer",
+      start: "2022-06",
+      end: "2023-01",
+      place: "Toronto, Ontario · Remote",
+      stack: ["Team of 5+", "BitBucket", "Bamboo", "Artifactory", "Ansible"],
+      notes: [
+        "Led a team of 5+ developers on a branch technology web application.",
+        "Developed the frontend for 4 web applications used by more than 800 branches across Canada.",
+        "Kept development and business teams aligned on requirements.",
+        "Set up the CI/CD pipeline on BitBucket, Bamboo, Artifactory and Ansible.",
+        "Spearheaded the Digitization team's interview process, hiring 10+ engineers.",
+      ],
+    },
+    {
+      id: "techlead",
+      lane: "bmo",
+      kind: "BMO · Full-time",
+      title: "Technical Lead",
+      start: "2023-01",
+      end: "2025-02",
+      stack: ["Azure AD", "Single Sign-On"],
+      notes: [
+        "Set up the technology for a scheduling application used within branches.",
+        "Established the Azure AD project for Single Sign-On integration.",
+      ],
+    },
+    {
+      id: "sto",
+      lane: "bmo",
+      kind: "BMO · Current",
+      title: "Senior Technology Officer",
+      start: "2025-02",
+      end: null,
+      stack: ["Leadership"],
+      notes: ["Current role at BMO, after 8 years and four titles at the bank."],
+    },
+  ],
+
+  // Directed edges: what each stage fed into.
+  edges: [
+    ["guelph", "codewater", "first role"],
+    ["codewater", "escy", "mobile"],
+    ["escy", "citysight", ""],
+    ["guelph", "dev", "graduated"],
+    ["dev", "hikma", "freelance"],
+    ["mango", "parier", "Solana"],
+    ["dev", "lead", "promoted"],
+    ["lead", "techlead", "promoted"],
+    ["techlead", "sto", "promoted"],
+  ],
+
+  // Impact figures, each quoted from a role above.
+  metrics: [
+    { value: "800+", unit: "branches", label: "use the 4 web apps whose frontend Yan built", source: "lead" },
+    { value: "10+", unit: "engineers", label: "hired through the interview process Yan ran", source: "lead" },
+    { value: "−70%", unit: "build time", label: "after the Bamboo CI/CD overhaul", source: "dev" },
+    { value: "80%", unit: "coverage", label: "unit test coverage held on the iOS apps", source: "dev" },
+    { value: "5+", unit: "developers", label: "led on the branch technology web app", source: "lead" },
+    { value: "5+", unit: "iOS apps", label: "kept current with iOS and BMO standards", source: "dev" },
+  ],
+
+  // Skills grouped the way a service catalog groups dependencies.
+  capabilities: [
+    { group: "Proficient", items: ["Angular", "JavaScript", "SCSS", "CSS", "HTML", "Swift", "Java", "C", "Python", "iOS", "Android"] },
+    { group: "Familiar", items: ["Objective-C", "Spring Boot", "PHP", "React", "Solana"] },
+    { group: "Tooling", items: ["Xcode", "Android Studio", "Sketch", "BitBucket", "Bamboo", "Artifactory", "Ansible", "Azure AD"] },
+  ],
+};
+
+</script>
+<script>
+(function () {
+  "use strict";
+  const P = window.PROFILE;
+  const NOW = new Date();
+  const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const SVGNS = "http://www.w3.org/2000/svg";
+  const $ = (id) => document.getElementById(id);
+
+  // ---------- helpers ----------
+  const ym = (s) => { const [y, m] = s.split("-").map(Number); return { y, m }; };
+  const toYear = (s) => { if (!s) return NOW.getFullYear() + NOW.getMonth() / 12; const d = ym(s); return d.y + (d.m - 1) / 12; };
+  const fmt = (s) => { if (!s) return "present"; const d = ym(s); return MONTHS[d.m - 1] + " " + d.y; };
+  const span = (n) => fmt(n.start) + " – " + fmt(n.end);
+  const months = (n) => {
+    const a = ym(n.start);
+    const b = n.end ? ym(n.end) : { y: NOW.getFullYear(), m: NOW.getMonth() + 1 };
+    return (b.y - a.y) * 12 + (b.m - a.m) + 1;
+  };
+  const dur = (n) => { const t = months(n), y = Math.floor(t / 12), m = t % 12; return [y && y + " yr", m && m + " mo"].filter(Boolean).join(" ") || "1 mo"; };
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const el = (tag, attrs, parent) => {
+    const e = document.createElementNS(SVGNS, tag);
+    for (const k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  };
+  const byId = Object.fromEntries(P.nodes.map((n) => [n.id, n]));
+  const sorted = [...P.nodes].sort((a, b) => toYear(a.start) - toYear(b.start));
+  const status = (n) => (n.pending ? "PENDING" : n.end ? "RETIRED" : "ACTIVE");
+  const redline = (text) => '<div class="redline">' + esc(text) + "</div>";
+
+  // ---------- title block ----------
+  $("tb-name").textContent = P.name;
+  $("tb-role").textContent = P.headline;
+  $("tb-tagline").textContent = "System architecture · " + P.tagline;
+  $("tb-summary").innerHTML =
+    (P.quote ? '<blockquote class="quote"><p>' + esc(P.quote.text) + "</p><cite>" + esc(P.quote.by) + "</cite></blockquote>" : "") +
+    (P.summary.pending ? redline(P.summary.text) : '<p class="summary">' + esc(P.summary.text) + "</p>");
+  const firstShip = new Date(P.firstShip);
+  const yearsInService = ((NOW - firstShip) / (365.25 * 864e5)).toFixed(1);
+  const revLetter = String.fromCharCode(64 + sorted.length);
+  const cells = [
+    ["Drawn by", P.name],
+    ["Dwg no.", "YA-EM-001"],
+    ["Site", P.location],
+    ["Rev", revLetter + " · " + NOW.toISOString().slice(0, 10)],
+    ["In service", yearsInService + " yrs"],
+    ["Services", P.nodes.length + " · " + P.nodes.filter((n) => !n.end).length + " active"],
+  ];
+  $("tb-cells").innerHTML = cells
+    .map(([k, v]) => '<div class="tb-cell"><span class="label">' + k + '</span><span class="v">' + esc(v) + "</span></div>")
+    .join("");
+
+  // ---------- architecture diagram ----------
+  const W = 860, LEFT = 104, RIGHT = 16, TOP = 26, BOX_H = 42, ROW_H = 54, LANE_PAD = 14;
+  const Y0 = 2013, Y1 = Math.ceil(toYear(null) + 0.25);
+  const x = (t) => LEFT + ((t - Y0) / (Y1 - Y0)) * (W - LEFT - RIGHT);
+  const CHAR = 7.9;
+
+  // Assign each node a row within its lane so boxes never overlap.
+  const layout = {};
+  const laneRows = {};
+  sorted.forEach((n) => {
+    const x0 = x(toYear(n.start));
+    const scaled = x(toYear(n.end)) - x0;
+    const textW = Math.max(n.title.length * CHAR, (n.kind.length + 4) * 6.4) + 22;
+    let w = Math.max(scaled, textW);
+    let bx = x0;
+    if (bx + w > W - RIGHT) bx = W - RIGHT - w; // keep label on the sheet
+    const rows = (laneRows[n.lane] = laneRows[n.lane] || []);
+    let r = rows.findIndex((end) => end + 10 < bx);
+    if (r === -1) { r = rows.length; rows.push(0); }
+    rows[r] = bx + w;
+    layout[n.id] = { n, bx, w, x0, x1: x0 + scaled, row: r };
+  });
+  let yCursor = TOP;
+  const laneY = {};
+  P.lanes.forEach((l) => {
+    const rows = Math.max(1, (laneRows[l.id] || []).length);
+    laneY[l.id] = { top: yCursor, h: rows * ROW_H + LANE_PAD };
+    yCursor += laneY[l.id].h;
+  });
+  const AXIS_Y = yCursor + 6;
+  const H = AXIS_Y + 30;
+  Object.values(layout).forEach((L) => { L.y = laneY[L.n.lane].top + LANE_PAD / 2 + L.row * ROW_H + (ROW_H - BOX_H) / 2; });
+
+  const svg = el("svg", { viewBox: "0 0 " + W + " " + H, role: "img", "aria-label": "Career drawn as a system architecture diagram, placed to scale by year" });
+  const defs = el("defs", {}, svg);
+  const marker = el("marker", { id: "arw", viewBox: "0 0 10 10", refX: 9, refY: 5, markerWidth: 7, markerHeight: 7, orient: "auto-start-reverse" }, defs);
+  el("path", { d: "M0,0 L10,5 L0,10 z", class: "arrow" }, marker);
+
+  // lanes
+  P.lanes.forEach((l) => {
+    const { top, h } = laneY[l.id];
+    el("line", { x1: 0, x2: W, y1: top + h, y2: top + h, class: "lane-rule" }, svg);
+    const t = el("text", { x: 8, y: top + h / 2 + 4, class: "lane-label" }, svg);
+    t.textContent = l.label.toUpperCase();
+  });
+  // axis
+  const axis = el("g", { class: "axis" }, svg);
+  el("line", { x1: LEFT, x2: W - RIGHT, y1: AXIS_Y, y2: AXIS_Y }, axis);
+  for (let y = Y0; y <= Y1; y++) {
+    el("line", { x1: x(y), x2: x(y), y1: AXIS_Y, y2: AXIS_Y + 5 }, axis);
+    el("line", { x1: x(y), x2: x(y), y1: TOP, y2: AXIS_Y, "stroke-dasharray": "1 7" }, axis);
+    if (y < Y1) { const t = el("text", { x: x(y) + 4, y: AXIS_Y + 18 }, axis); t.textContent = y; }
+  }
+  // now marker
+  const nowG = el("g", { class: "now" }, svg);
+  const xn = x(toYear(null));
+  el("line", { x1: xn, x2: xn, y1: TOP - 14, y2: AXIS_Y }, nowG);
+  const nt = el("text", { x: xn - 4, y: TOP - 16, "text-anchor": "end" }, nowG);
+  nt.textContent = "NOW";
+
+  // edges
+  const edgeG = el("g", {}, svg);
+  P.edges.forEach(([a, b, label]) => {
+    const A = layout[a], B = layout[b];
+    if (!A || !B) return;
+    const down = B.y > A.y;
+    const sx = Math.max(A.bx + 14, Math.min(A.bx + A.w - 14, B.bx - 34));
+    const sy = down ? A.y + BOX_H : A.y;
+    const tx = B.bx - 3, ty = B.y + BOX_H / 2;
+    const d = "M" + sx + "," + sy + " C" + sx + "," + ty + " " + (sx + (tx - sx) * 0.4) + "," + ty + " " + tx + "," + ty;
+    el("path", { d, class: "edge", "marker-end": "url(#arw)" }, edgeG);
+    // label sits just before the arrowhead so edges sharing a source never collide
+    const lt = el("text", { x: tx - 8, y: ty - 7, "text-anchor": "end", class: "edge-label" }, edgeG);
+    lt.textContent = label;
+  });
+
+  // nodes
+  const nodeEls = {};
+  Object.values(layout).forEach((L) => {
+    const n = L.n;
+    const g = el("g", { class: "node" + (n.pending ? " pending" : ""), tabindex: 0, role: "button", "aria-label": n.title + ", " + span(n) }, svg);
+    el("rect", { class: "box", x: L.bx, y: L.y, width: L.w, height: BOX_H }, g);
+    // the true duration, to scale, as a filled bar along the bottom edge
+    el("rect", { x: L.x0, y: L.y + BOX_H - 4, width: Math.max(2, L.x1 - L.x0), height: 4, fill: "currentColor", class: "dur" }, g);
+    const k = el("text", { x: L.bx + 10, y: L.y + 15, class: "kind" }, g);
+    k.textContent = n.kind.toUpperCase() + (n.pending ? " · TBD" : "");
+    const t = el("text", { x: L.bx + 10, y: L.y + 32, class: "title" }, g);
+    t.textContent = n.title;
+    el("circle", { cx: L.bx, cy: L.y + BOX_H / 2, r: 3.5, class: "port" }, g);
+    g.addEventListener("click", () => select(n.id));
+    g.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); select(n.id); } });
+    nodeEls[n.id] = g;
+  });
+  $("diagram").appendChild(svg);
+  // the duration bar colour follows the line token
+  svg.querySelectorAll(".dur").forEach((r) => (r.style.fill = "var(--line)"));
+  svg.querySelectorAll(".pending .dur").forEach((r) => (r.style.fill = "var(--redline)"));
+
+  // ---------- spec sheet ----------
+  function select(id) {
+    const n = byId[id];
+    if (!n) return;
+    Object.entries(nodeEls).forEach(([k, g]) => g.classList.toggle("active", k === id));
+    $("spec").innerHTML =
+      "<header><span class=\"label\">Spec · " + esc(n.id) + "</span><h3>" + esc(n.title) + "</h3></header>" +
+      "<dl>" +
+      "<dt class=\"label\">Type</dt><dd>" + esc(n.kind) + "</dd>" +
+      (n.place ? "<dt class=\"label\">Site</dt><dd>" + esc(n.place) + "</dd>" : "") +
+      "<dt class=\"label\">Window</dt><dd>" + esc(span(n)) + "</dd>" +
+      "<dt class=\"label\">Uptime</dt><dd>" + esc(dur(n)) + "</dd>" +
+      "<dt class=\"label\">Status</dt><dd>" + status(n) + "</dd>" +
+      "</dl>" +
+      (n.pending ? redline("Placeholder dates and details") : "") +
+      "<ul class=\"notes\">" + n.notes.map((t) => "<li>" + esc(t) + "</li>").join("") + "</ul>" +
+      "<div class=\"deps\">" + n.stack.map((s) => "<span class=\"chip\">" + esc(s) + "</span>").join("") + "</div>";
+  }
+  select("lead");
+
+  // ---------- dependency catalog ----------
+  $("catalog").innerHTML = P.capabilities
+    .map((c) => '<div class="dep-group"><span class="label">' + esc(c.group) + '</span><div class="items">' +
+      c.items.map((i) => '<span class="chip">' + esc(i) + "</span>").join("") + "</div></div>")
+    .join("");
+
+  // ---------- telemetry ----------
+  $("metrics").innerHTML = P.metrics
+    .map((m) => '<article class="metric"><div class="reading"><span class="val">' + esc(m.value) + '</span><span class="unit">' + esc(m.unit) +
+      '</span></div><p>' + esc(m.label) + '</p><button type="button" class="src" data-node="' + esc(m.source) + '">' +
+      esc(byId[m.source] ? byId[m.source].title : m.source) + " →</button></article>")
+    .join("");
+  $("metrics").addEventListener("click", (e) => {
+    const b = e.target.closest("button[data-node]");
+    if (!b) return;
+    select(b.dataset.node);
+    $("arch-h").scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+
+  // ---------- revision log ----------
+  $("revs").innerHTML =
+    "<thead><tr><th>Rev</th><th>Date</th><th>Change</th><th>Status</th></tr></thead><tbody>" +
+    sorted.map((n, i) =>
+      '<tr class="' + (n.pending ? "pending" : "") + '"><td class="rev">' + String.fromCharCode(65 + i) +
+      '</td><td class="date">' + esc(fmt(n.start)) + "</td><td>" + esc(n.kind) + ": " + esc(n.title) +
+      (n.pending ? ' <span class="revtag">placeholder</span>' : "") + "</td><td class=\"date\">" + status(n) + "</td></tr>"
+    ).join("") + "</tbody>";
+
+  $("foot-left").textContent = "Sheet 1 of 1 · " + P.location;
+  $("foot-links").innerHTML = '<a href="' + esc(P.linkedin) + '" target="_blank" rel="noopener">LinkedIn</a> · <a href="' + esc(P.github) + '" target="_blank" rel="noopener">GitHub</a>';
+
+  // ---------- ops console ----------
+  const out = $("console-out");
+  const input = $("console-input");
+  const history = [];
+  let hIdx = 0;
+  const print = (html, cls) => { const d = document.createElement("div"); if (cls) d.className = cls; d.innerHTML = html; out.appendChild(d); out.scrollTop = out.scrollHeight; };
+  const pad = (s, n) => (s + " ".repeat(n)).slice(0, n);
+
+  const commands = {
+    help: () =>
+      [
+        ["whoami", "who runs this system"],
+        ["ls", "list every service"],
+        ["describe <id>", "spec for one service, e.g. describe parier"],
+        ["uptime", "time since the first thing shipped"],
+        ["stack", "dependencies in use"],
+        ["metrics", "impact readings"],
+        ["contact", "how to reach Yan"],
+        ["history", "commands run this session"],
+        ["clear", "clear the screen"],
+      ].map(([c, d]) => pad(c, 16) + '<span class="dim">' + d + "</span>").join("\n"),
+    whoami: () => esc(P.name) + "\n" + '<span class="dim">' + esc(P.headline) + " · " + esc(P.location) + "</span>",
+    ls: () =>
+      '<span class="dim">' + pad("ID", 11) + pad("STATUS", 9) + "WINDOW</span>\n" +
+      sorted.map((n) => pad(n.id, 11) + (n.pending ? '<span class="warn">' + pad(status(n), 9) + "</span>" : pad(status(n), 9)) + span(n)).join("\n"),
+    describe: (arg) => {
+      const n = byId[arg];
+      if (!arg) return '<span class="warn">describe needs a service id. Run ls to see them.</span>';
+      if (!n) return '<span class="warn">No service called "' + esc(arg) + '". Run ls to see the ids.</span>';
+      select(n.id);
+      return esc(n.title) + '  <span class="dim">' + esc(n.kind) + " · " + esc(span(n)) + " · " + dur(n) + "</span>\n" +
+        n.notes.map((t) => "  - " + esc(t)).join("\n") + "\n" +
+        '<span class="dim">  deps: ' + n.stack.map(esc).join(", ") + "</span>" +
+        (n.pending ? '\n<span class="warn">  placeholder: waiting on LinkedIn data</span>' : "");
+    },
+    uptime: () => {
+      const days = Math.floor((NOW - firstShip) / 864e5);
+      return "up " + Math.floor(days / 365.25) + " years, " + Math.floor(days % 365.25) + " days" +
+        '<span class="dim">  since the first role (' + esc(P.firstShipLabel) + ", " + fmt(P.firstShip.slice(0, 7)) + ")</span>";
+    },
+    stack: () => P.capabilities.map((c) => pad(c.group, 13) + '<span class="dim">' + c.items.map(esc).join(", ") + "</span>").join("\n"),
+    metrics: () => P.metrics.map((m) => pad(m.value, 7) + pad(m.unit, 12) + '<span class="dim">' + esc(m.label) + "</span>").join("\n"),
+    contact: () =>
+      'linkedin  <a href="' + esc(P.linkedin) + '" target="_blank" rel="noopener">' + esc(P.linkedin.replace("https://www.", "")) + "</a>\n" +
+      'github    <a href="' + esc(P.github) + '" target="_blank" rel="noopener">' + esc(P.github.replace("https://", "")) + "</a>",
+    history: () => history.map((h, i) => pad(String(i + 1), 4) + esc(h)).join("\n") || '<span class="dim">no commands yet</span>',
+    clear: () => { out.innerHTML = ""; return null; },
+    sudo: (arg) => arg.startsWith("hire")
+      ? 'Permission granted. Next step: <a href="' + esc(P.linkedin) + '" target="_blank" rel="noopener">message Yan on LinkedIn</a>.'
+      : '<span class="warn">Only "sudo hire yan" is allowed here.</span>',
+  };
+
+  function run(raw) {
+    const line = raw.trim();
+    if (!line) return;
+    history.push(line);
+    hIdx = history.length;
+    print('<span class="dim">$</span> <span class="cmd">' + esc(line) + "</span>");
+    const [cmd, ...rest] = line.split(/\s+/);
+    const fn = commands[cmd.toLowerCase()];
+    const res = fn ? fn(rest.join(" ").toLowerCase()) : '<span class="warn">' + esc(cmd) + ": command not found. Try help.</span>";
+    if (res) print(res);
+  }
+
+  $("console-form").addEventListener("submit", (e) => { e.preventDefault(); run(input.value); input.value = ""; });
+  input.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowUp" && hIdx > 0) { hIdx--; input.value = history[hIdx]; e.preventDefault(); }
+    else if (e.key === "ArrowDown") { hIdx = Math.min(history.length, hIdx + 1); input.value = history[hIdx] || ""; e.preventDefault(); }
+    else if (e.key === "Tab") {
+      const v = input.value;
+      const parts = v.split(/\s+/);
+      const pool = parts.length > 1 ? P.nodes.map((n) => n.id) : Object.keys(commands);
+      const hit = pool.filter((c) => c.startsWith(parts[parts.length - 1]));
+      if (hit.length === 1) { parts[parts.length - 1] = hit[0]; input.value = parts.join(" ") + (parts.length === 1 ? " " : ""); e.preventDefault(); }
+    }
+  });
+  ["whoami", "ls", "describe lead", "metrics", "uptime", "sudo hire yan"].forEach((c) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.textContent = c;
+    b.addEventListener("click", () => { run(c); input.focus({ preventScroll: true }); });
+    $("quick").appendChild(b);
+  });
+
+  // boot log, printed at rest so the console reads fully on load
+  print('<span class="dim">[ ok ] mounted ' + P.nodes.length + " services across " + P.lanes.length + " lanes</span>");
+  print('<span class="dim">[ ok ] first role ' + fmt(P.firstShip.slice(0, 7)) + " · in service " + yearsInService + " yrs</span>");
+  const pend = P.nodes.filter((n) => n.pending).length;
+  if (pend) print('<span class="warn">[warn] ' + pend + " services waiting on LinkedIn data</span>");
+  run("whoami");
+  run("ls");
+})();
+
+</script>
+
+</body>
+</html>
