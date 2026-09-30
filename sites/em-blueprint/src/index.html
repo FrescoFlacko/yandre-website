@@ -1,0 +1,86 @@
+<title>Yan's System Blueprint</title>
+<meta name="description" content="Yanique Andre's engineering leadership portfolio, drawn as a system blueprint.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=B612+Mono&family=Saira+Extra+Condensed:wght@500;600;700&display=swap">
+<style>
+/*@@CSS@@*/
+</style>
+
+<main class="sheet">
+  <header class="titleblock" aria-label="Title block">
+    <div class="tb-main">
+      <span class="label" id="tb-tagline">System architecture</span>
+      <h1 id="tb-name">Yanique Andre</h1>
+      <p class="role" id="tb-role"></p>
+      <div id="tb-summary"></div>
+    </div>
+    <div class="tb-cells" id="tb-cells"></div>
+  </header>
+
+  <section class="section" aria-labelledby="arch-h">
+    <div class="section-head">
+      <h2 id="arch-h">Architecture</h2>
+      <span class="label">Drawn to scale · 1 column = 1 year</span>
+    </div>
+    <div class="arch">
+      <div class="section" style="gap:8px">
+        <div class="diagram-wrap" id="diagram"></div>
+        <p class="diagram-hint">Select any box to read its spec. The solid bar under each box is its true duration.</p>
+      </div>
+      <aside class="spec" id="spec" aria-live="polite"></aside>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ops-h">
+    <div class="section-head">
+      <h2 id="ops-h">Ops console</h2>
+      <span class="label">Type <b>help</b> or tap a command</span>
+    </div>
+    <div class="ops">
+      <div class="console" id="console">
+        <div class="console-bar"><span>yan@blueprint:~</span><span class="ok">all systems nominal</span></div>
+        <div class="console-out" id="console-out" role="log" aria-live="polite"></div>
+        <div>
+          <div class="quick" id="quick"></div>
+          <form class="console-in" id="console-form" autocomplete="off">
+            <label for="console-input">$</label>
+            <input id="console-input" type="text" spellcheck="false" autocapitalize="off" aria-label="Console command">
+          </form>
+        </div>
+      </div>
+      <div class="catalog">
+        <div class="section-head"><h2 style="font-size:var(--step-1)">Dependencies</h2><span class="label">Skills in use</span></div>
+        <div id="catalog"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="tel-h">
+    <div class="section-head">
+      <h2 id="tel-h">Telemetry</h2>
+      <span class="label">Impact readings, each traced to its source role</span>
+    </div>
+    <div class="metrics" id="metrics"></div>
+  </section>
+
+  <section class="section" aria-labelledby="rev-h">
+    <div class="section-head">
+      <h2 id="rev-h">Revision log</h2>
+      <span class="label">Every change to the system, oldest first</span>
+    </div>
+    <div class="revs-wrap"><table class="revs" id="revs"></table></div>
+  </section>
+
+  <footer class="foot">
+    <span class="label" id="foot-left"></span>
+    <span class="label" id="foot-links"></span>
+  </footer>
+</main>
+
+<script>
+/*@@DATA@@*/
+</script>
+<script>
+/*@@APP@@*/
+</script>
