@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Voxel Toronto</title>
+    <meta name="description" content="Yanique Andre's journey from Brampton to Guelph to downtown Toronto, told as a voxel city." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=JetBrains+Mono:wght@500&display=swap" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="scene" aria-label="A voxel map of Brampton, Guelph and downtown Toronto. The story panel describes each stop."></canvas>
+
+    <header class="brand">
+      <p class="brand-name">Yanique Andre</p>
+      <p class="brand-sub">Voxel journey · The 6ix</p>
+    </header>
+
+    <div class="tools" role="toolbar" aria-label="Scene settings">
+      <button type="button" id="btn-time" class="tool" title="Change the time of day"><span class="k">Sky</span><span class="v">Dusk</span></button>
+      <button type="button" id="btn-season" class="tool" title="Change the season"><span class="k">Season</span><span class="v">Autumn</span></button>
+      <button type="button" id="btn-snow" class="tool" aria-pressed="false" title="Toggle snowfall"><span class="k">Snow</span><span class="v">Off</span></button>
+      <button type="button" id="btn-read" class="tool tool-read" title="Read the whole story as text"><span class="k">Read</span><span class="v">as text</span></button>
+    </div>
+
+    <aside id="card" class="card" aria-live="polite" aria-labelledby="card-title">
+      <button type="button" id="card-toggle" class="card-toggle" aria-label="Collapse or expand the story panel"><span></span></button>
+      <div id="card-body" class="card-body"></div>
+    </aside>
+
+    <nav class="line" aria-label="Journey stops">
+      <button type="button" id="prev" class="line-arrow" aria-label="Previous stop">‹</button>
+      <div class="line-track">
+        <p class="line-name">Line Y · Brampton to CN Tower</p>
+        <ol id="stations" class="stations"></ol>
+      </div>
+      <button type="button" id="next" class="line-arrow" aria-label="Next stop">›</button>
+    </nav>
+
+    <div id="tooltip" class="tooltip" hidden></div>
+
+    <div id="loader" class="loader">
+      <div class="loader-inner">
+        <p class="loader-title">Yanique Andre</p>
+        <div id="loader-bar" class="loader-bar"><span></span></div>
+        <p id="loader-label" class="loader-label">Surveying the GTA</p>
+      </div>
+    </div>
+
+    <section id="textmode" class="textmode" hidden aria-label="The story as text">
+      <div class="text-wrap">
+        <button type="button" id="text-close" class="text-close">Back to the city</button>
+        <div id="text-body"></div>
+        <p class="text-foot">Built from Yanique's LinkedIn profile. The city is a stylized, compressed Toronto, not a map.</p>
+      </div>
+    </section>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
